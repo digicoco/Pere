@@ -17,7 +17,7 @@ const GradientPanel = styled('div')({
   width: '100%',
 });
 
-export const PromptCard = () => {
+export const AllCompleteCard = () => {
   return (
     <GradientPanel>
       <Row alignItems="center" gridGap="dimensions.spacing.200">
@@ -28,10 +28,10 @@ export const PromptCard = () => {
         </View>
         <Col>
           <Text fontSize="T200" fontWeight="bold" color="color.neutral.90">
-            Get started with your To Do list
+            Great job!
           </Text>
           <Text fontSize="T100" color="color.neutral.90">
-            Click through your agent's task list.
+            All your agent tasks are complete.
           </Text>
         </Col>
       </Row>

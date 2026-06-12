@@ -20,10 +20,11 @@ const IllustrationContainer = styled('div')({
   height: '100%',
   display: 'flex',
   alignItems: 'flex-end',
+  zIndex: 1,
 });
 
 const HeroImage = styled('img')({
-  height: '140%',
+  height: '100%',
   objectFit: 'contain',
   objectPosition: 'bottom right',
 });
@@ -31,13 +32,14 @@ const HeroImage = styled('img')({
 export const CopilotHeader = () => {
   return (
     <View padding="dimensions.spacing.400">
-      <H1 padding={['0', '0', 'dimensions.spacing.300', '0']}>Copilot</H1>
-      <HeroBanner>
+      <Col gridGap="dimensions.spacing.300">
+        <H1>Copilot</H1>
+        <HeroBanner>
         <Col
           padding={['dimensions.spacing.400', 'dimensions.spacing.400']}
           gridGap="dimensions.spacing.200"
           maxWidth="60%"
-          zIndex={1}
+          style={{ position: 'relative', zIndex: 2 }}
         >
           <Text fontSize="T300" fontWeight="bold" color="color.neutral.90">
             Your agents have been working hard so you don't have to.
@@ -55,6 +57,7 @@ export const CopilotHeader = () => {
           />
         </IllustrationContainer>
       </HeroBanner>
+      </Col>
     </View>
   );
 };

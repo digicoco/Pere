@@ -1,63 +1,158 @@
-import { useState } from 'react';
 import { Row, Col, View } from '@amzn/stencil-react-components/layout';
 import { Text } from '@amzn/stencil-react-components/text';
-import { Checkbox } from '@amzn/stencil-react-components/checkbox';
 import { Card } from '@amzn/stencil-react-components/card';
-import { Chip, ChipSize } from '@amzn/stencil-react-components/chip';
-import IconChevronRightSmall from '@amzn/stencil-react-icons/icons/icon-chevron-right-small';
+import { Checkbox } from '@amzn/stencil-react-components/checkbox';
+import { token } from '@amzn/stencil-design-tokens/js/web/utils';
+import styled from '@emotion/styled';
+import IconExternalLinkExtraSmall from '@amzn/stencil-react-icons/icons/icon-external-link-extra-small';
+import IconThumbUpExtraSmall from '@amzn/stencil-react-icons/icons/icon-thumb-up-extra-small';
+import IconMessageHelpExtraSmall from '@amzn/stencil-react-icons/icons/icon-message-help-extra-small';
+import IconBulletedListExtraSmall from '@amzn/stencil-react-icons/icons/icon-bulleted-list-extra-small';
+import IconClauseExtraSmall from '@amzn/stencil-react-icons/icons/icon-clause-extra-small';
+
+export type ActionStatus = 'critical' | 'warning' | 'info';
 
 export interface ActionItem {
   id: string;
   title: string;
-  agent: string;
-  priority?: 'high' | 'medium' | 'low';
-  dueLabel?: string;
+  subtitle: string;
+  secondaryText?: string;
+  status: ActionStatus;
+  iconType: 'approval' | 'review' | 'response' | 'task';
+  hasExternalLink?: boolean;
 }
 
 interface ActionCardProps {
   item: ActionItem;
   isSelected: boolean;
-  onSelect: (id: string) => void;
   onClick: (id: string) => void;
 }
 
-export const ActionCard = ({ item, isSelected, onSelect, onClick }: ActionCardProps) => {
+const statusBackgroundMap: Record<ActionStatus, string> = {
+  critical: 'color.status.critical-bg',
+  warning: 'color.status.warning-bg',
+  info: 'color.status.info-bg',
+};
+
+const statusStripColorMap: Record<ActionStatus, string> = {
+  critical: token('color.red.10'),
+  warning: token('color.yellow.10'),
+  info: token('color.blue.10'),
+};
+
+const SelectedCardWrapper = styled('div')<{ isSelected: boolean }>(({ isSelected }) => ({
+  border: isSelected ? `3px solid ${token('color.blue.70')}` : `1px solid ${token('color.border.primary')}`,
+  borderRadius: token('dimensions.border.radius.200'),
+  overflow: 'hidden',
+  display: 'flex',
+  cursor: 'pointer',
+  backgroundColor: token('color.surface.bg-default'),
+}));
+
+const LeftStrip = styled('div')<{ status: ActionStatus }>(({ status }) => ({
+  width: 6,
+  alignSelf: 'stretch',
+  backgroundColor: statusStripColorMap[status],
+}));
+
+const IconForType = ({ type }: { type: ActionItem['iconType'] }) => {
+  switch (type) {
+    case 'approval':
+      return <IconThumbUpExtraSmall aria-hidden="true" />;
+    case 'review':
+      return <IconClauseExtraSmall aria-hidden="true" />;
+    case 'response':
+      return <IconMessageHelpExtraSmall aria-hidden="true" />;
+    case 'task':
+      return <IconBulletedListExtraSmall aria-hidden="true" />;
+  }
+};
+
+export const ActionCard = ({ item, isSelected, onClick }: ActionCardProps) => {
   return (
-    <Card padding="dimensions.spacing.300" width="100%">
-      <Row alignItems="center" gridGap="dimensions.spacing.300" width="100%">
-        <View onClick={(e: React.MouseEvent) => e.stopPropagation()}>
-          <Checkbox
-            checked={isSelected}
-            onChange={() => onSelect(item.id)}
-            aria-label={`Select ${item.title}`}
-          />
-        </View>
-        <Col
+    <SelectedCardWrapper isSelected={isSelected} onClick={() => onClick(item.id)}>
+      {isSelected && <LeftStrip status={item.status} />}
+      <Row
+        alignItems="center"
+        padding={['0', 'dimensions.spacing.250', '0', 'dimensions.spacing.250']}
+        flex={1}
+      >
+        <Row
+          gridGap="dimensions.spacing.250"
+          alignItems="center"
           flex={1}
-          gridGap="dimensions.spacing.100"
-          onClick={() => onClick(item.id)}
-          style={{ cursor: 'pointer' }}
+          padding={['dimensions.spacing.250', '0']}
         >
-          <Text fontSize="T200" fontWeight="medium" color="color.neutral.90">
-            {item.title}
-          </Text>
-          <Row gridGap="dimensions.spacing.200" alignItems="center">
-            <Text fontSize="T100" color="color.neutral.60">
-              {item.agent}
-            </Text>
-            {item.dueLabel && (
-              <Chip size={ChipSize.ExtraSmall}>{item.dueLabel}</Chip>
-            )}
-          </Row>
-        </Col>
-        <View
-          onClick={() => onClick(item.id)}
-          style={{ cursor: 'pointer' }}
-          color="color.neutral.50"
-        >
-          <IconChevronRightSmall aria-hidden="true" />
-        </View>
+          {isSelected ? (
+            <View
+              backgroundColor="color.fill.neutral.secondary"
+              padding="dimensions.spacing.200"
+              borderRadius="dimensions.border.radius.100"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              width={32}
+              height={32}
+            >
+              <Checkbox checked={true} onChange={() => {}} aria-label={`Selected ${item.title}`} />
+            </View>
+          ) : (
+            <View
+              backgroundColor={statusBackgroundMap[item.status]}
+              padding="dimensions.spacing.200"
+              borderRadius="dimensions.border.radius.100"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              width={32}
+              height={32}
+            >
+              <IconForType type={item.iconType} />
+            </View>
+          )}
+          <Col gridGap="dimensions.spacing.100" flex={1}>
+            <Row gridGap="dimensions.spacing.100" alignItems="center">
+              <Text fontSize="T200" color="color.neutral.90">
+                {item.title}
+              </Text>
+              {item.hasExternalLink && (
+                <IconExternalLinkExtraSmall aria-hidden="true" />
+              )}
+            </Row>
+            <Row gridGap="dimensions.spacing.100" alignItems="center">
+              <Text fontSize="T50" fontWeight="medium" color="color.neutral.70">
+                {item.subtitle}
+              </Text>
+              {item.secondaryText && (
+                <>
+                  <View
+                    width={2}
+                    height={2}
+                    borderRadius="50%"
+                    backgroundColor="color.neutral.50"
+                  />
+                  <Text fontSize="T50" fontWeight="medium" color="color.neutral.70">
+                    {item.secondaryText}
+                  </Text>
+                </>
+              )}
+              {isSelected && (
+                <>
+                  <View
+                    width={2}
+                    height={2}
+                    borderRadius="50%"
+                    backgroundColor="color.neutral.50"
+                  />
+                  <Text fontSize="T50" fontWeight="medium" color="color.neutral.70">
+                    Needs attention
+                  </Text>
+                </>
+              )}
+            </Row>
+          </Col>
+        </Row>
       </Row>
-    </Card>
+    </SelectedCardWrapper>
   );
 };

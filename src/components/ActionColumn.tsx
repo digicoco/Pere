@@ -7,8 +7,7 @@ interface ActionColumnProps {
   title: string;
   count: number;
   items: ActionItem[];
-  selectedItems: Set<string>;
-  onSelect: (id: string) => void;
+  selectedId: string | null;
   onItemClick: (id: string) => void;
 }
 
@@ -16,14 +15,13 @@ export const ActionColumn = ({
   title,
   count,
   items,
-  selectedItems,
-  onSelect,
+  selectedId,
   onItemClick,
 }: ActionColumnProps) => {
   return (
-    <Col gridGap="dimensions.spacing.300" minWidth={350} flex={1}>
+    <Col gridGap="dimensions.spacing.200" minWidth={350} flex={1}>
       <Row alignItems="center" gridGap="dimensions.spacing.200">
-        <Text fontSize="T200" fontWeight="bold" color="color.neutral.90">
+        <Text fontSize="T100" fontWeight="bold" color="color.neutral.70">
           {title}
         </Text>
         <Badge type={BadgeType.Neutral} value={count} />
@@ -33,8 +31,7 @@ export const ActionColumn = ({
           <ActionCard
             key={item.id}
             item={item}
-            isSelected={selectedItems.has(item.id)}
-            onSelect={onSelect}
+            isSelected={selectedId === item.id}
             onClick={onItemClick}
           />
         ))}
