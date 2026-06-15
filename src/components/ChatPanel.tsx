@@ -143,6 +143,21 @@ const taskSuggestionMap: Record<string, { suggestions: string[]; actions: string
     actions: ['Resubmit LO-PH-0000213 with corrected data', 'Escalate LO-PH-0000228 to system admin', 'Retry all 4 with updated configurations'],
     response: 'I found 4 labor orders in Error status: LO-PH-0000213, LO-PH-0000228, and 2 others. Common causes are data validation failures and system timeout. I can attempt automated resubmission for 2 that appear to be transient errors, and escalate the other 2 that need configuration fixes.',
   },
+  'no-shows from yesterday need follow-up': {
+    suggestions: ['Show Connect session data for each', 'What is the no-show reschedule policy?', 'Check if any responded to reminders'],
+    actions: ['Send reschedule link to Felix Walsh, Anya Petrov, Tariq Aziz', 'Mark all 3 as no-show in system', 'Open 3 replacement slots for tomorrow'],
+    response: 'I found 3 no-shows from yesterday that are blocking the reschedule flow. None responded to the automated 2h reminder. Connect session data shows 0 seconds for all three — they never joined. I recommend marking them as no-show and sending reschedule links with a 48h expiry window.',
+  },
+  'expired scheduling windows': {
+    suggestions: ['Which candidates are affected?', 'Can we extend the window?', 'Show alternative available slots'],
+    actions: ['Extend scheduling window by 72h for both candidates', 'Send re-booking notification with new slot options', 'Flag to site coordinator for manual outreach'],
+    response: 'Two candidates have expired scheduling windows at Manila-BGC — their original slots expired 48h ago and they cannot self-rebook. The system blocks re-entry after expiry. I recommend extending their window by 72h and sending an SMS with direct booking links to available slots.',
+  },
+  'medical appointments not yet booked': {
+    suggestions: ['Which clinics have availability?', 'Are these blocking Day 1?', 'Show candidate contact details'],
+    actions: ['Auto-book 2 candidates at MedFirst (next available Jun 14)', 'Send booking reminder to remaining 2 candidates', 'Escalate to clinic liaison for priority slots'],
+    response: 'Four candidates have no medical appointment booked and all are blocking Day 1 readiness. Clinic availability is dropping — next open at MedFirst is Jun 14. I recommend auto-booking the 2 most urgent candidates and sending reminders with self-schedule links to the other 2.',
+  },
 };
 
 function getContextForMessage(msg: string): { suggestions: string[]; actions: string[]; response: string } | null {

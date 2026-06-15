@@ -51,7 +51,7 @@ export const CopilotHeader = () => {
         </Col>
         <IllustrationContainer>
           <HeroImage
-            src="/hero-illustration.png"
+            src="./hero-illustration.png"
             alt=""
             role="presentation"
           />

@@ -9,7 +9,7 @@ import { ApplicationsPage, applicationSuggestions } from './pages/ApplicationsPa
 import { GenericPage } from './pages/GenericPage';
 import { LaborOrdersPage, laborOrderSuggestionsList } from './pages/LaborOrdersPage';
 import { WorkflowsPage } from './pages/WorkflowsPage';
-import { AppointmentsPage } from './pages/AppointmentsPage';
+import { AppointmentsPage, appointmentUrgentItems } from './pages/AppointmentsPage';
 import { SchedulesPage } from './pages/SchedulesPage';
 import { JobsPage } from './pages/JobsPage';
 import { InsightsPage } from './pages/InsightsPage';
@@ -33,6 +33,8 @@ const App = () => {
         return applicationSuggestions.map(s => s.title);
       case 'labor-orders':
         return laborOrderSuggestionsList.map(s => s.title);
+      case 'appointments':
+        return appointmentUrgentItems.map(s => s.title);
       default:
         return [];
     }
@@ -71,7 +73,7 @@ const App = () => {
       case 'schedules':
         return <JobsPage />;
       case 'appointments':
-        return <AppointmentsPage />;
+        return <AppointmentsPage onReview={openChatWithMessage} completedTasks={completedTasks} />;
       case 'agents':
         return <AgentsPage />;
       case 'workflows':
