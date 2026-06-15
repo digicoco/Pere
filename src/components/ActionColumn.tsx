@@ -9,6 +9,7 @@ interface ActionColumnProps {
   items: ActionItem[];
   selectedId: string | null;
   onItemClick: (id: string) => void;
+  onOpenAgent?: () => void;
 }
 
 export const ActionColumn = ({
@@ -17,6 +18,7 @@ export const ActionColumn = ({
   items,
   selectedId,
   onItemClick,
+  onOpenAgent,
 }: ActionColumnProps) => {
   return (
     <Col gridGap="dimensions.spacing.200" minWidth={350} flex={1}>
@@ -33,6 +35,7 @@ export const ActionColumn = ({
             item={item}
             isSelected={selectedId === item.id}
             onClick={onItemClick}
+            onOpenAgent={onOpenAgent}
           />
         ))}
       </Col>

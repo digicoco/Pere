@@ -5,10 +5,28 @@ import { Checkbox } from '@amzn/stencil-react-components/checkbox';
 import { token } from '@amzn/stencil-design-tokens/js/web/utils';
 import styled from '@emotion/styled';
 import IconExternalLinkExtraSmall from '@amzn/stencil-react-icons/icons/icon-external-link-extra-small';
+import { withTooltip, TOOLTIP_POSITION } from '@amzn/stencil-react-components/tooltip';
 import IconThumbUpExtraSmall from '@amzn/stencil-react-icons/icons/icon-thumb-up-extra-small';
 import IconMessageHelpExtraSmall from '@amzn/stencil-react-icons/icons/icon-message-help-extra-small';
 import IconBulletedListExtraSmall from '@amzn/stencil-react-icons/icons/icon-bulleted-list-extra-small';
 import IconClauseExtraSmall from '@amzn/stencil-react-icons/icons/icon-clause-extra-small';
+
+const OpenAgentButton = styled('button')({
+  background: 'transparent',
+  border: 'none',
+  cursor: 'pointer',
+  padding: 4,
+  borderRadius: 4,
+  display: 'inline-flex',
+  alignItems: 'center',
+  color: token('color.neutral.70'),
+  '&:hover': {
+    backgroundColor: token('color.surface.bg-muted'),
+    color: token('color.neutral.90'),
+  },
+});
+
+const OpenAgentButtonWithTooltip = withTooltip({ position: TOOLTIP_POSITION.BOTTOM })(OpenAgentButton);
 
 export type ActionStatus = 'critical' | 'warning' | 'info';
 
@@ -26,6 +44,7 @@ interface ActionCardProps {
   item: ActionItem;
   isSelected: boolean;
   onClick: (id: string) => void;
+  onOpenAgent?: () => void;
 }
 
 const statusBackgroundMap: Record<ActionStatus, string> = {
@@ -68,7 +87,7 @@ const IconForType = ({ type }: { type: ActionItem['iconType'] }) => {
   }
 };
 
-export const ActionCard = ({ item, isSelected, onClick }: ActionCardProps) => {
+export const ActionCard = ({ item, isSelected, onClick, onOpenAgent }: ActionCardProps) => {
   return (
     <SelectedCardWrapper isSelected={isSelected} onClick={() => onClick(item.id)}>
       {isSelected && <LeftStrip status={item.status} />}
@@ -116,7 +135,13 @@ export const ActionCard = ({ item, isSelected, onClick }: ActionCardProps) => {
                 {item.title}
               </Text>
               {item.hasExternalLink && (
-                <IconExternalLinkExtraSmall aria-hidden="true" />
+                <OpenAgentButtonWithTooltip
+                  tooltipText="Open agent"
+                  aria-label="Open agent"
+                  onClick={(e: React.MouseEvent) => { e.stopPropagation(); onOpenAgent?.(); }}
+                >
+                  <IconExternalLinkExtraSmall aria-hidden="true" />
+                </OpenAgentButtonWithTooltip>
               )}
             </Row>
             <Row gridGap="dimensions.spacing.100" alignItems="center">

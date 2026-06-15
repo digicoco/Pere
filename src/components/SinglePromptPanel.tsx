@@ -58,6 +58,16 @@ interface SinglePromptPanelProps {
 
 export const SinglePromptPanel = ({ item, onComplete }: SinglePromptPanelProps) => {
   const [chatQuery, setChatQuery] = useState('');
+  const [isApproved, setIsApproved] = useState(false);
+
+  const handleApprove = () => {
+    setIsApproved(true);
+    onComplete(item.id);
+  };
+
+  const handleUndo = () => {
+    setIsApproved(false);
+  };
 
   return (
     <Card padding="dimensions.spacing.300" width="100%" borderRadius="dimensions.border.radius.300">
@@ -86,9 +96,15 @@ export const SinglePromptPanel = ({ item, onComplete }: SinglePromptPanelProps) 
             <Chip size={ChipSize.ExtraSmall}>{item.secondaryText}</Chip>
           )}
           <View flex={1} />
-          <Button variant={ButtonVariant.Primary} onClick={() => onComplete(item.id)}>
-            Approve
-          </Button>
+          {isApproved ? (
+            <Button variant={ButtonVariant.Tertiary} onClick={handleUndo}>
+              Undo
+            </Button>
+          ) : (
+            <Button variant={ButtonVariant.Primary} onClick={handleApprove}>
+              Approve
+            </Button>
+          )}
         </Row>
 
         <Col gridGap="dimensions.spacing.300">

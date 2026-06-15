@@ -66,6 +66,33 @@ interface MultiPromptPanelProps {
 }
 
 export const MultiPromptPanel = ({ item, subPrompts, onApproveAll, onApproveOne }: MultiPromptPanelProps) => {
+  const [approvedItems, setApprovedItems] = useState<Set<string>>(new Set());
+  const [allApproved, setAllApproved] = useState(false);
+
+  const handleApproveAll = () => {
+    setAllApproved(true);
+    setApprovedItems(new Set(subPrompts.map(s => s.id)));
+    onApproveAll(item.id);
+  };
+
+  const handleUndoAll = () => {
+    setAllApproved(false);
+    setApprovedItems(new Set());
+  };
+
+  const handleApproveOne = (subId: string) => {
+    setApprovedItems(prev => new Set(prev).add(subId));
+    onApproveOne(subId);
+  };
+
+  const handleUndoOne = (subId: string) => {
+    setApprovedItems(prev => {
+      const next = new Set(prev);
+      next.delete(subId);
+      return next;
+    });
+    setAllApproved(false);
+  };
   return (
     <Col gridGap="dimensions.spacing.200">
       <Card padding="dimensions.spacing.300" width="100%" borderRadius="dimensions.border.radius.300">
@@ -89,9 +116,15 @@ export const MultiPromptPanel = ({ item, subPrompts, onApproveAll, onApproveOne 
           </Row>
 
           <Row justifyContent="flex-end">
-            <Button variant={ButtonVariant.Primary} onClick={() => onApproveAll(item.id)}>
-              Approve all {subPrompts.length}
-            </Button>
+            {allApproved ? (
+              <Button variant={ButtonVariant.Tertiary} onClick={handleUndoAll}>
+                Undo all
+              </Button>
+            ) : (
+              <Button variant={ButtonVariant.Primary} onClick={handleApproveAll}>
+                Approve all {subPrompts.length}
+              </Button>
+            )}
           </Row>
 
           <Col gridGap="dimensions.spacing.300">
@@ -112,9 +145,15 @@ export const MultiPromptPanel = ({ item, subPrompts, onApproveAll, onApproveOne 
                         <Chip key={tag} size={ChipSize.ExtraSmall}>{tag}</Chip>
                       ))}
                     </Row>
-                    <Button variant={ButtonVariant.Secondary} onClick={() => onApproveOne(sub.id)}>
-                      Approve
-                    </Button>
+                    {approvedItems.has(sub.id) ? (
+                      <Button variant={ButtonVariant.Tertiary} onClick={() => handleUndoOne(sub.id)}>
+                        Undo
+                      </Button>
+                    ) : (
+                      <Button variant={ButtonVariant.Secondary} onClick={() => handleApproveOne(sub.id)}>
+                        Approve
+                      </Button>
+                    )}
                   </Row>
                 </Col>
               </Card>
