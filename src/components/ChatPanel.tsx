@@ -173,6 +173,26 @@ const taskSuggestionMap: Record<string, { suggestions: string[]; actions: string
     actions: ['Pause candidate pipeline pending review', 'Delete pre-LOI NID submission from system', 'Re-trigger NID collection after LOI is signed'],
     response: 'Compliance violation detected: NID (National ID) was collected from 1 candidate before their LOI (Letter of Intent) was signed. Under the Philippine Data Privacy Act, personal identification documents can only be collected post-LOI. I recommend pausing this candidate\'s pipeline, purging the pre-LOI document, and re-requesting NID upload after the LOI is executed.',
   },
+  'stuck in pipeline': {
+    suggestions: ['Show which state they\'re stuck in', 'What\'s blocking each candidate?', 'Who was the last recruiter to act?'],
+    actions: ['Bulk-advance 3 clear candidates to next stage', 'Send nudge to assigned recruiter for 2 flagged cases', 'Escalate 1 candidate stuck on BGC adjudication'],
+    response: 'I found 5 candidates stuck in "Pending Decision" for more than 48 hours with no recruiter action. 3 appear to be straightforward pass decisions (all docs complete, no flags). 2 have minor flags that need review. The oldest has been waiting 3 days. All are targeting the Jun 23 cohort — delays here directly impact Day 1 readiness.',
+  },
+  'no-show rate spike': {
+    suggestions: ['Were reminders sent on time?', 'Which time slots had the most no-shows?', 'Compare to last week\'s rate'],
+    actions: ['Check SMS reminder delivery status for today', 'Send immediate reschedule links to 5 no-shows', 'Add 5 backup slots for tomorrow to compensate'],
+    response: 'Today\'s no-show rate is 40% (5 of 12 appointments missed) — nearly 3x the 15% average. Checking the reminder system: 48hr reminders were sent on time, but the 2hr reminders appear to have failed for 3 candidates (SMS delivery error). I recommend investigating the SMS service, sending immediate reschedule links, and opening backup slots for tomorrow.',
+  },
+  'bgc vendor delay': {
+    suggestions: ['Which candidates are affected?', 'What\'s Accurate\'s current SLA?', 'Are there alternative vendors?'],
+    actions: ['Send escalation email to Accurate account manager', 'Notify 8 candidates of BGC processing delay', 'Flag 4 Jun 23 candidates for cohort date review'],
+    response: 'Accurate (BGC vendor) has 8 candidates with results pending more than 5 business days — their SLA is 3 days. 4 of these candidates are targeting the Jun 23 start date and are being blocked from completing pre-start. I recommend immediate escalation to the Accurate account manager and proactive candidate communication about the delay.',
+  },
+  'unlikely to complete': {
+    suggestions: ['What tasks are they missing?', 'Can we extend any deadlines?', 'Which ones are closest to ready?'],
+    actions: ['Send urgent completion reminders to all 12', 'Move 5 slowest candidates to Jun 30 cohort', 'Extend deadline by 3 days for 4 almost-ready candidates'],
+    response: 'Based on current task velocity vs. days remaining, 12 candidates are unlikely to complete all pre-start requirements by the Jun 23 start date. Breakdown: 5 are missing multiple tasks (NID + BGC + medical), 4 are waiting on a single vendor result (BGC), and 3 have one self-service task remaining. I recommend moving the 5 multi-task candidates to Jun 30 and giving the remaining 7 an urgent push.',
+  },
 };
 
 function getContextForMessage(msg: string): { suggestions: string[]; actions: string[]; response: string } | null {
