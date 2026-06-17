@@ -21,7 +21,7 @@ interface CompletedAction {
   completedDate: string;
 }
 
-export const CopilotPage = ({ onOpenPhotoGrid }: { onOpenPhotoGrid?: () => void }) => {
+export const CopilotPage = ({ onOpenPhotoGrid, onOpenRejectRetake }: { onOpenPhotoGrid?: () => void; onOpenRejectRetake?: () => void }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [historySearchQuery, setHistorySearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -102,6 +102,7 @@ export const CopilotPage = ({ onOpenPhotoGrid }: { onOpenPhotoGrid?: () => void 
           onApproveAll={handleComplete}
           onApproveOne={(subId) => console.log('Approved sub:', subId)}
           onOpenPhotoGrid={onOpenPhotoGrid}
+          onOpenRejectRetake={onOpenRejectRetake}
         />
       );
     }

@@ -65,9 +65,10 @@ interface MultiPromptPanelProps {
   onApproveAll: (id: string) => void;
   onApproveOne: (subId: string) => void;
   onOpenPhotoGrid?: () => void;
+  onOpenRejectRetake?: () => void;
 }
 
-export const MultiPromptPanel = ({ item, subPrompts, onApproveAll, onApproveOne, onOpenPhotoGrid }: MultiPromptPanelProps) => {
+export const MultiPromptPanel = ({ item, subPrompts, onApproveAll, onApproveOne, onOpenPhotoGrid, onOpenRejectRetake }: MultiPromptPanelProps) => {
   const [approvedItems, setApprovedItems] = useState<Set<string>>(new Set());
   const [allApproved, setAllApproved] = useState(false);
 
@@ -161,7 +162,7 @@ export const MultiPromptPanel = ({ item, subPrompts, onApproveAll, onApproveOne,
               </Text>
               <IconChevronRightSmall aria-hidden="true" />
             </ActionLink>
-            <ActionLink>
+            <ActionLink onClick={() => onOpenRejectRetake?.()}>
               <Text fontSize="T200" fontWeight="medium" color="color.neutral.90">
                 Reject all failing and request retake
               </Text>

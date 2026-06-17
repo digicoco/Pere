@@ -14,6 +14,7 @@ import { SchedulesPage } from './pages/SchedulesPage';
 import { JobsPage } from './pages/JobsPage';
 import { InsightsPage } from './pages/InsightsPage';
 import { PhotoGridPage } from './pages/PhotoGridPage';
+import { RejectRetakePage } from './pages/RejectRetakePage';
 
 export type NavPage = 'copilot' | 'insights' | 'people' | 'labor-orders' | 'applications' | 'jobs' | 'schedules' | 'appointments' | 'agents' | 'workflows';
 
@@ -23,6 +24,7 @@ const App = () => {
   const [chatInitialMessage, setChatInitialMessage] = useState<string | undefined>();
   const [completedTasks, setCompletedTasks] = useState<Set<string>>(new Set());
   const [showPhotoGrid, setShowPhotoGrid] = useState(false);
+  const [showRejectRetake, setShowRejectRetake] = useState(false);
 
   const openChatWithMessage = (msg: string) => {
     setChatInitialMessage(msg);
@@ -61,7 +63,7 @@ const App = () => {
   const renderPage = () => {
     switch (activePage) {
       case 'copilot':
-        return <CopilotPage onOpenPhotoGrid={() => setShowPhotoGrid(true)} />;
+        return <CopilotPage onOpenPhotoGrid={() => setShowPhotoGrid(true)} onOpenRejectRetake={() => setShowRejectRetake(true)} />;
       case 'insights':
         return <InsightsPage />;
       case 'people':
@@ -98,6 +100,7 @@ const App = () => {
         </div>
       </Row>
       {showPhotoGrid && <PhotoGridPage onClose={() => setShowPhotoGrid(false)} />}
+      {showRejectRetake && <RejectRetakePage onClose={() => setShowRejectRetake(false)} />}
     </Col>
   );
 };
