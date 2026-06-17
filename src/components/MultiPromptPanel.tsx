@@ -128,17 +128,15 @@ export const MultiPromptPanel = ({ item, subPrompts, onApproveAll, onApproveOne,
           <Col gridGap="dimensions.spacing.300">
             {approvalCards.map((sub) => (
               <Card key={sub.id} padding="dimensions.spacing.300" width="100%">
-                <Col gridGap="dimensions.spacing.200">
-                  <Row alignItems="center" justifyContent="space-between">
-                    <Text fontSize="T200" fontWeight="bold" color="color.neutral.90">
-                      {sub.title}
-                    </Text>
-                  </Row>
+                <Col gridGap="dimensions.spacing.200" style={{ width: '100%' }}>
+                  <Text fontSize="T200" fontWeight="bold" color="color.neutral.90">
+                    {sub.title}
+                  </Text>
                   <Text fontSize="T100" color="color.neutral.90">
                     {sub.description}
                   </Text>
-                  <Row alignItems="center" justifyContent="space-between" flex={1}>
-                    <Row gridGap="dimensions.spacing.100" flexWrap="wrap" style={{ flex: 1 }}>
+                  <Row alignItems="center" justifyContent="space-between" style={{ width: '100%' }}>
+                    <Row gridGap="dimensions.spacing.100" flexWrap="wrap">
                       {sub.tags.map((tag) => (
                         <Chip key={tag} size={ChipSize.ExtraSmall}>{tag}</Chip>
                       ))}
