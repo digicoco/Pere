@@ -92,9 +92,9 @@ export const MultiPromptPanel = ({ item, subPrompts, onApproveAll, onApproveOne,
   const approvalCards = subPrompts.filter(s => s.tags.includes('IVV-High'));
 
   return (
-    <Col gridGap="dimensions.spacing.200">
+    <Col gridGap="dimensions.spacing.200" style={{ width: '100%', minWidth: 0 }}>
       <Card padding="dimensions.spacing.300" width="100%" borderRadius="dimensions.border.radius.300">
-        <Col gridGap="dimensions.spacing.300">
+        <Col gridGap="dimensions.spacing.300" style={{ width: '100%' }}>
           <Row alignItems="center" justifyContent="space-between">
             <Row gridGap="dimensions.spacing.200" alignItems="center">
               <View
@@ -125,9 +125,9 @@ export const MultiPromptPanel = ({ item, subPrompts, onApproveAll, onApproveOne,
             )}
           </Row>
 
-          <Col gridGap="dimensions.spacing.300">
+          <Col gridGap="dimensions.spacing.300" style={{ width: '100%' }}>
             {approvalCards.map((sub) => (
-              <Card key={sub.id} padding="dimensions.spacing.300" width="100%">
+              <Card key={sub.id} padding="dimensions.spacing.300" width="100%" flex={1}>
                 <Col gridGap="dimensions.spacing.200" style={{ width: '100%' }}>
                   <Text fontSize="T200" fontWeight="bold" color="color.neutral.90">
                     {sub.title}
