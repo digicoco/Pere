@@ -194,7 +194,7 @@ export const CopilotPage = ({ onOpenPhotoGrid, onOpenRejectRetake }: { onOpenPho
               <ActionColumn
                 title="Due soon"
                 count={actions.length}
-                items={actions}
+                items={actions.slice((currentPage - 1) * 10, currentPage * 10)}
                 selectedId={selectedActionId}
                 onItemClick={handleItemClick}
               />
@@ -208,7 +208,7 @@ export const CopilotPage = ({ onOpenPhotoGrid, onOpenRejectRetake }: { onOpenPho
 
             <Row justifyContent="flex-start" alignItems="center">
               <Pagination
-                numberOfPages={5}
+                numberOfPages={Math.ceil(actions.length / 10)}
                 onPageSelect={setCurrentPage}
                 selectedPage={currentPage}
               />
