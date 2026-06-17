@@ -137,8 +137,8 @@ export const MultiPromptPanel = ({ item, subPrompts, onApproveAll, onApproveOne,
                   <Text fontSize="T100" color="color.neutral.90">
                     {sub.description}
                   </Text>
-                  <Row alignItems="center" justifyContent="space-between">
-                    <Row gridGap="dimensions.spacing.100">
+                  <Row alignItems="center" justifyContent="space-between" flex={1}>
+                    <Row gridGap="dimensions.spacing.100" flexWrap="wrap" style={{ flex: 1 }}>
                       {sub.tags.map((tag) => (
                         <Chip key={tag} size={ChipSize.ExtraSmall}>{tag}</Chip>
                       ))}
