@@ -45,8 +45,8 @@ export const CopilotHeader = () => {
             Your agents have been working hard so you don't have to.
           </Text>
           <Text fontSize="T100" color="color.neutral.70">
-            We've collected all your actions from each of your agents. Complete them as you
-            please from your digest. Go to the agents page to configure or create new agents.
+            4 active jobs, 147 candidates in pipeline. 12 appointments today, 6 offers to extend.
+            Complete your actions from the digest below, or go to agents to configure automation.
           </Text>
         </Col>
         <IllustrationContainer>

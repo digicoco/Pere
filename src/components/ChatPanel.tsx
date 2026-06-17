@@ -85,11 +85,11 @@ const ActionButton = styled('button')({
 });
 
 const defaultSuggestions = [
-  'Show me applicants idle 5+ days in BGC',
-  'Draft a reminder for everyone with a PHA tomorrow',
-  'Find candidates to fill the BFI4 back-half shift',
-  'Reject anyone who hasn\'t responded in 14 days',
-  'Why is drop-off so high in step 4?',
+  'Show me my pipeline summary',
+  'Who\'s stuck or at risk today?',
+  'Any offers expiring today?',
+  'Pre-start status for Jun 23 cohort',
+  'How\'s the Jun 23 cohort looking?',
 ];
 
 const taskSuggestionMap: Record<string, { suggestions: string[]; actions: string[]; response: string }> = {

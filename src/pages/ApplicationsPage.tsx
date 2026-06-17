@@ -69,16 +69,16 @@ export const applicationSuggestions: AiSuggestion[] = [
 ];
 
 const mockApplications = [
-  { appId: 'APP-000', scheduleId: 'sch-ph-cs-default-736', jobId: 'job-mnl1-89', site: 'MNL1', hrAction: 'Eval pending', step: 'Welcome', candidateId: 'CAND-000', firstName: 'Priya', lastName: 'Nair', appointment: '--', lastModified: '2026-06-07', created: '2026-05-20', country: 'PH', active: true },
-  { appId: 'APP-001', scheduleId: 'sch-ph-cs-default-735', jobId: 'job-ceb1-89', site: 'CEB1', hrAction: 'Ready to hire', step: 'Review & submit', candidateId: 'CAND-001', firstName: 'Mateo', lastName: 'Dela Cruz', appointment: '2026-06-14', lastModified: '2026-06-07', created: '2026-04-28', country: 'PH', active: true },
-  { appId: 'APP-002', scheduleId: 'sch-ph-cs-default-734', jobId: 'job-mnl1-89', site: 'MNL1', hrAction: 'Eval pending', step: 'Welcome', candidateId: 'CAND-002', firstName: 'Sofia', lastName: 'Flores', appointment: '--', lastModified: '2026-06-06', created: '2026-05-08', country: 'PH', active: true },
-  { appId: 'APP-003', scheduleId: 'sch-ph-cs-default-733', jobId: 'job-ceb1-89', site: 'CEB1', hrAction: 'Eval pending', step: 'Welcome', candidateId: 'CAND-003', firstName: 'Liam', lastName: 'Santos', appointment: '--', lastModified: '2026-06-05', created: '2026-05-14', country: 'PH', active: true },
-  { appId: 'APP-010', scheduleId: 'sch-ph-cs-default-705', jobId: 'job-ceb1-85', site: 'CEB1', hrAction: 'Eval pending', step: 'Welcome', candidateId: 'CAND-010', firstName: 'Bea', lastName: 'Aquino', appointment: '--', lastModified: '2026-06-07', created: '2026-04-22', country: 'PH', active: true },
-  { appId: 'APP-011', scheduleId: 'sch-ph-cs-default-704', jobId: 'job-mnl1-85', site: 'MNL1', hrAction: 'Eval pending', step: 'Welcome', candidateId: 'CAND-011', firstName: 'Diego', lastName: 'Ignacio', appointment: '--', lastModified: '2026-06-05', created: '2026-05-17', country: 'PH', active: true },
-  { appId: 'APP-012', scheduleId: 'sch-ph-cs-default-703', jobId: 'job-ceb1-85', site: 'CEB1', hrAction: 'Eval pending', step: 'Welcome', candidateId: 'CAND-012', firstName: 'Ina', lastName: 'Mendoza', appointment: '--', lastModified: '2026-06-04', created: '2026-05-12', country: 'PH', active: true },
-  { appId: 'APP-013', scheduleId: 'sch-ph-cs-default-702', jobId: 'job-mnl1-85', site: 'MNL1', hrAction: 'Eval pending', step: 'Welcome', candidateId: 'CAND-013', firstName: 'Rafael', lastName: 'Aguilar', appointment: '--', lastModified: '2026-06-05', created: '2026-04-26', country: 'PH', active: true },
-  { appId: 'APP-020', scheduleId: 'sch-ph-cs-default-674', jobId: 'job-mnl1-81', site: 'MNL1', hrAction: 'Eval pending', step: 'Welcome', candidateId: 'CAND-020', firstName: 'Aaliyah', lastName: 'Reyes', appointment: '--', lastModified: '2026-06-07', created: '2026-05-22', country: 'PH', active: true },
-  { appId: 'APP-021', scheduleId: 'sch-ph-cs-default-673', jobId: 'job-ceb1-81', site: 'CEB1', hrAction: 'Eval pending', step: 'Welcome', candidateId: 'CAND-021', firstName: 'Mateo', lastName: 'Dela Cruz', appointment: '--', lastModified: '2026-06-06', created: '2026-04-26', country: 'PH', active: true },
+  { appId: 'APP-001', scheduleId: 'sch-ph-cs-day-736', jobId: 'job-mnl1-cs-89', site: 'MNL1', hrAction: 'Pending decision', step: 'Appointment complete', candidateId: 'CAND-001', firstName: 'Maria', lastName: 'Santos', appointment: '2026-06-16', lastModified: '2026-06-16', created: '2026-06-13', country: 'PH', active: true },
+  { appId: 'APP-002', scheduleId: 'sch-ph-cs-night-735', jobId: 'job-mnl1-cs-89', site: 'MNL1', hrAction: 'Pre-start in progress', step: 'BGC pending', candidateId: 'CAND-002', firstName: 'Juan', lastName: 'Dela Cruz', appointment: '2026-06-10', lastModified: '2026-06-14', created: '2026-06-08', country: 'PH', active: true },
+  { appId: 'APP-003', scheduleId: 'sch-ph-cs-mid-734', jobId: 'job-ceb1-cs-89', site: 'CEB1', hrAction: 'Offer pending', step: 'Offer extended', candidateId: 'CAND-003', firstName: 'Ana', lastName: 'Reyes', appointment: '2026-06-12', lastModified: '2026-06-14', created: '2026-06-10', country: 'PH', active: true },
+  { appId: 'APP-004', scheduleId: 'sch-ph-cs-day-733', jobId: 'job-mnl1-cs-89', site: 'MNL1', hrAction: 'Medical pending', step: 'Medical scheduled', candidateId: 'CAND-004', firstName: 'Paolo', lastName: 'Garcia', appointment: '2026-06-15', lastModified: '2026-06-15', created: '2026-06-05', country: 'PH', active: true },
+  { appId: 'APP-005', scheduleId: 'sch-ph-cs-day-732', jobId: 'job-ceb1-cs-89', site: 'CEB1', hrAction: 'Task blocked', step: 'Badge photo rejected', candidateId: 'CAND-005', firstName: 'Carla', lastName: 'Mendoza', appointment: '--', lastModified: '2026-06-14', created: '2026-06-09', country: 'PH', active: true },
+  { appId: 'APP-006', scheduleId: 'sch-ph-cs-night-731', jobId: 'job-mnl1-cs-89', site: 'MNL1', hrAction: 'No-show', step: 'Reschedule needed', candidateId: 'CAND-006', firstName: 'Ramon', lastName: 'Torres', appointment: '2026-06-16', lastModified: '2026-06-16', created: '2026-06-06', country: 'PH', active: true },
+  { appId: 'APP-007', scheduleId: 'sch-ph-cs-day-730', jobId: 'job-mnl1-cs-89', site: 'MNL1', hrAction: 'Day 1 ready', step: 'Complete', candidateId: 'CAND-007', firstName: 'Sofia', lastName: 'Flores', appointment: '2026-06-09', lastModified: '2026-06-15', created: '2026-05-28', country: 'PH', active: true },
+  { appId: 'APP-008', scheduleId: 'sch-ph-cs-mid-729', jobId: 'job-ceb1-cs-89', site: 'CEB1', hrAction: 'Eval pending', step: 'Under review', candidateId: 'CAND-008', firstName: 'Bea', lastName: 'Aquino', appointment: '--', lastModified: '2026-06-16', created: '2026-06-15', country: 'PH', active: true },
+  { appId: 'APP-009', scheduleId: 'sch-ph-cs-day-728', jobId: 'job-mnl1-cs-89', site: 'MNL1', hrAction: 'Eval pending', step: 'Applied today', candidateId: 'CAND-009', firstName: 'Diego', lastName: 'Ignacio', appointment: '--', lastModified: '2026-06-16', created: '2026-06-16', country: 'PH', active: true },
+  { appId: 'APP-010', scheduleId: 'sch-ph-cs-night-727', jobId: 'job-ceb1-cs-89', site: 'CEB1', hrAction: 'Offer accepted', step: 'Pre-start tasks', candidateId: 'CAND-010', firstName: 'Liam', lastName: 'Santos', appointment: '2026-06-07', lastModified: '2026-06-13', created: '2026-06-01', country: 'PH', active: true },
 ];
 
 const columns = [
@@ -110,7 +110,7 @@ export const ApplicationsPage = ({ onReview, completedTasks }: { onReview?: (msg
       <View padding={['dimensions.spacing.400', 'dimensions.spacing.400', 'dimensions.spacing.200']}>
         <H1>Applications</H1>
         <Text fontSize="T200" color="color.neutral.70">
-          One row per application record. <Text fontWeight="bold" color="color.neutral.90">243</Text> applications
+          One row per application record. <Text fontWeight="bold" color="color.neutral.90">147</Text> applications
         </Text>
       </View>
 
@@ -231,12 +231,12 @@ export const ApplicationsPage = ({ onReview, completedTasks }: { onReview?: (msg
 
       <Row padding="dimensions.spacing.300" justifyContent="center" alignItems="center" gridGap="dimensions.spacing.300">
         <Pagination
-          numberOfPages={12}
+          numberOfPages={8}
           onPageSelect={setCurrentPage}
           selectedPage={currentPage}
         />
         <Text fontSize="T100" color="color.neutral.60">
-          Showing 20 of 243
+          Showing 20 of 147
         </Text>
       </Row>
     </Col>

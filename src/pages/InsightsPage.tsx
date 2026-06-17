@@ -215,6 +215,9 @@ const funnelData = [
   { label: 'Apply started', value: 12480, percent: 26 },
   { label: 'Apply completed', value: 4120, percent: 8.5 },
   { label: 'Application created', value: 2870, percent: 6 },
+  { label: 'Appointment scheduled', value: 1640, percent: 3.4 },
+  { label: 'Offer extended', value: 890, percent: 1.8 },
+  { label: 'Day 1 started', value: 612, percent: 1.3 },
 ];
 
 const standardReports = [
@@ -331,12 +334,13 @@ export const InsightsPage = () => {
             <Text fontSize="T200" fontWeight="bold" color="color.neutral.90">Pere&apos;s read</Text>
           </Row>
           <Text fontSize="T200" fontWeight="bold" color="color.neutral.90">
-            Lead capture is healthy in all marketplaces, but the apply-start step is leaking.
+            Pipeline velocity is healthy but pre-start completion is the bottleneck.
           </Text>
           <BulletList>
-            <BulletPoint>Impressions-to-click rate (41%) is above benchmark (35%) across all geos.</BulletPoint>
-            <BulletPoint>Click-to-apply-start (63%) drops below target (70%) in 3 sites — likely a landing-page UX issue.</BulletPoint>
-            <BulletPoint>Apply-start-to-complete (33%) is in line with expectations; no action needed.</BulletPoint>
+            <BulletPoint>Apply-to-appointment conversion (57%) is above benchmark — sourcing quality is strong.</BulletPoint>
+            <BulletPoint>No-show rate (25.7%) is 10pts above target (15%) — recommend 48h+24h+2h auto-reminders (currently only 24h).</BulletPoint>
+            <BulletPoint>Pre-start task completion (NID + BGC + Badge) is gating 12 candidates for the Jun 23 cohort — 4 are at risk of missing Day 1.</BulletPoint>
+            <BulletPoint>Medical clearance is the slowest step: avg 4.6 days vs. 2-day SLA. MedFirst clinic is the primary delay.</BulletPoint>
           </BulletList>
         </AIInsightCard>
 
@@ -346,12 +350,12 @@ export const InsightsPage = () => {
             <H2>Demand &amp; supply</H2>
             <MetricGrid>
               <MetricCard>
-                <Text fontSize="T100" color="color.neutral.70">HC demanded</Text>
-                <Text fontSize="T300" fontWeight="bold" color="color.neutral.90">16,080</Text>
+                <Text fontSize="T100" color="color.neutral.70">Active pipeline</Text>
+                <Text fontSize="T300" fontWeight="bold" color="color.neutral.90">147</Text>
               </MetricCard>
               <MetricCard>
-                <Text fontSize="T100" color="color.neutral.70">Schedules created</Text>
-                <Text fontSize="T300" fontWeight="bold" color="color.neutral.90">369</Text>
+                <Text fontSize="T100" color="color.neutral.70">Active jobs</Text>
+                <Text fontSize="T300" fontWeight="bold" color="color.neutral.90">4</Text>
               </MetricCard>
               <MetricCard>
                 <Text fontSize="T100" color="color.neutral.70">Labor orders</Text>
@@ -363,31 +367,28 @@ export const InsightsPage = () => {
                       fill="none"
                       stroke="#6366f1"
                       strokeWidth="8"
-                      strokeDasharray={`${(148 / 200) * 175.9} 175.9`}
+                      strokeDasharray={`${(38 / 50) * 175.9} 175.9`}
                       strokeLinecap="round"
                       transform="rotate(-90 32 32)"
                     />
                   </svg>
                 </div>
-                <Text fontSize="T200" fontWeight="bold" color="color.neutral.90">148 orders</Text>
+                <Text fontSize="T200" fontWeight="bold" color="color.neutral.90">38 active / 50 total</Text>
               </MetricCard>
               <MetricCard>
-                <Text fontSize="T100" color="color.neutral.70">Jobs by status</Text>
-                <Row gridGap="dimensions.spacing.050" alignItems="flex-end" style={{ height: 48 }}>
-                  <div style={{ width: 16, height: '80%', background: '#3b82f6', borderRadius: 4 }} />
-                  <div style={{ width: 16, height: '60%', background: '#6366f1', borderRadius: 4 }} />
-                  <div style={{ width: 16, height: '30%', background: '#a855f7', borderRadius: 4 }} />
-                  <div style={{ width: 16, height: '45%', background: '#d8b4fe', borderRadius: 4 }} />
-                </Row>
-                <Text fontSize="T50" color="color.neutral.60">Active / Filled / Closed / Draft</Text>
+                <Text fontSize="T100" color="color.neutral.70">Today's appointments</Text>
+                <Text fontSize="T300" fontWeight="bold" color="color.neutral.90">12</Text>
+                <Text fontSize="T100" color="color.neutral.60">4 complete · 8 remaining · 1 no-show</Text>
               </MetricCard>
               <MetricCard>
-                <Text fontSize="T100" color="color.neutral.70">Fill rate</Text>
-                <Text fontSize="T300" fontWeight="bold" color="color.neutral.90">74%</Text>
+                <Text fontSize="T100" color="color.neutral.70">Offers today</Text>
+                <Text fontSize="T300" fontWeight="bold" color="color.neutral.90">6 to extend</Text>
+                <Text fontSize="T100" color="color.neutral.60">19 pending · 3 expiring 24hr</Text>
               </MetricCard>
               <MetricCard>
                 <Text fontSize="T100" color="color.neutral.70">Avg. time to fill</Text>
-                <Text fontSize="T300" fontWeight="bold" color="color.neutral.90">11.2 days</Text>
+                <Text fontSize="T300" fontWeight="bold" color="color.neutral.90">5.2 days</Text>
+                <Text fontSize="T100" color="color.neutral.60">Tier-1 CS Associate (target: 3–7d)</Text>
               </MetricCard>
             </MetricGrid>
           </Col>
@@ -420,16 +421,19 @@ export const InsightsPage = () => {
                 </Row>
               </MetricCard>
               <MetricCard>
-                <Text fontSize="T100" color="color.neutral.70">PHA duration</Text>
+                <Text fontSize="T100" color="color.neutral.70">Pre-start completion</Text>
                 <Text fontSize="T300" fontWeight="bold" color="color.neutral.90">4.6 days</Text>
+                <Text fontSize="T100" color="color.neutral.60">NID + BGC + Badge + Medical avg</Text>
               </MetricCard>
               <MetricCard>
                 <Text fontSize="T100" color="color.neutral.70">No-show rate</Text>
-                <Text fontSize="T300" fontWeight="bold" color="color.neutral.90">25.7%</Text>
+                <Text fontSize="T300" fontWeight="bold" color="color.red.70">25.7%</Text>
+                <Text fontSize="T100" color="color.neutral.60">Target: 15% — 10pts above</Text>
               </MetricCard>
               <MetricCard>
                 <Text fontSize="T100" color="color.neutral.70">Offer acceptance</Text>
                 <Text fontSize="T300" fontWeight="bold" color="color.neutral.90">88.3%</Text>
+                <Text fontSize="T100" color="color.neutral.60">4 accepted today · 1 declined</Text>
               </MetricCard>
             </MetricGrid>
           </Col>
