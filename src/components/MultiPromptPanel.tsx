@@ -159,7 +159,7 @@ export const MultiPromptPanel = ({ item, subPrompts, onApproveAll, onApproveOne,
           <Col gridGap="dimensions.spacing.200">
             <ActionLink onClick={() => onOpenPhotoGrid?.()}>
               <Text fontSize="T200" fontWeight="medium" color="color.neutral.90">
-                View all {subPrompts.length} badge photos
+                Review all {subPrompts.length} badge photos
               </Text>
               <IconChevronRightSmall aria-hidden="true" />
             </ActionLink>
