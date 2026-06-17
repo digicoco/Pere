@@ -88,6 +88,9 @@ export const MultiPromptPanel = ({ item, subPrompts, onApproveAll, onApproveOne,
     onApproveOne(subId);
   };
 
+  // Only show high-confidence photos (80%+) as instant-approve cards
+  const approvalCards = subPrompts.filter(s => s.tags.includes('IVV-High'));
+
   return (
     <Col gridGap="dimensions.spacing.200">
       <Card padding="dimensions.spacing.300" width="100%" borderRadius="dimensions.border.radius.300">
@@ -117,13 +120,13 @@ export const MultiPromptPanel = ({ item, subPrompts, onApproveAll, onApproveOne,
               </Button>
             ) : (
               <Button variant={ButtonVariant.Primary} onClick={handleApproveAll}>
-                Approve all passing ({subPrompts.filter(s => s.tags.includes('IVV-High') || s.tags.includes('IVV-Med')).length})
+                Approve all {approvalCards.length} passing (80%+)
               </Button>
             )}
           </Row>
 
           <Col gridGap="dimensions.spacing.300">
-            {subPrompts.map((sub) => (
+            {approvalCards.map((sub) => (
               <Card key={sub.id} padding="dimensions.spacing.300" width="100%">
                 <Col gridGap="dimensions.spacing.200">
                   <Row alignItems="center" justifyContent="space-between">
