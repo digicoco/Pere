@@ -117,7 +117,7 @@ export const MultiPromptPanel = ({ item, subPrompts, onApproveAll, onApproveOne,
               </Button>
             ) : (
               <Button variant={ButtonVariant.Primary} onClick={handleApproveAll}>
-                Approve all {subPrompts.length}
+                Approve all passing ({subPrompts.filter(s => s.tags.includes('IVV-High') || s.tags.includes('IVV-Med')).length})
               </Button>
             )}
           </Row>

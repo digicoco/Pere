@@ -66,24 +66,80 @@ export const CopilotPage = ({ onOpenPhotoGrid, onOpenRejectRetake }: { onOpenPho
 
   const selectedAction = actions.find((a) => a.id === selectedActionId) || null;
 
+  // All 12 badge photos — shown in the detail panel when "Badge Photos" task is selected
+  // 5 low-confidence (need individual review), 4 medium (borderline), 3 high (auto-approve candidates)
   const mockSubPrompts = [
     {
       id: 'sub-1',
-      title: 'Badge Photo: Maria Santos',
-      description: 'Confidence score 62%. Background not uniform — appears to be taken in a dimly lit room. Face + neck visible.',
-      tags: ['IVV-Low', 'PHA-Batch'],
+      title: 'Badge Photo: Maria Santos — 62%',
+      description: 'Background not uniform — dimly lit room. Face + neck visible but lighting insufficient for badge.',
+      tags: ['IVV-Low', 'Needs Review'],
     },
     {
       id: 'sub-2',
-      title: 'Badge Photo: Juan Reyes',
-      description: 'Confidence score 58%. Partial face occlusion detected — candidate wearing cap. Real-time capture confirmed.',
-      tags: ['IVV-Low', 'PHA-Batch'],
+      title: 'Badge Photo: Juan Reyes — 58%',
+      description: 'Partial face occlusion — candidate wearing cap. Real-time capture confirmed but cap violates policy.',
+      tags: ['IVV-Low', 'Needs Review'],
     },
     {
       id: 'sub-3',
-      title: 'Badge Photo: Ana Cruz',
-      description: 'Confidence score 65%. Image slightly blurry. White background confirmed. Full face visible.',
-      tags: ['IVV-Low', 'PHA-Batch'],
+      title: 'Badge Photo: Ana Cruz — 65%',
+      description: 'Image slightly blurry. White background confirmed. Resolution below minimum threshold.',
+      tags: ['IVV-Low', 'Needs Review'],
+    },
+    {
+      id: 'sub-4',
+      title: 'Badge Photo: Carla Mendoza — 45%',
+      description: 'Cropped too tight — shoulders not visible. Photo shows only face, missing neck and shoulder line.',
+      tags: ['IVV-Low', 'Retake Req'],
+    },
+    {
+      id: 'sub-5',
+      title: 'Badge Photo: Diego Ignacio — 52%',
+      description: 'Filter detected — skin smoothing applied. IVV system flagged digital manipulation.',
+      tags: ['IVV-Low', 'Retake Req'],
+    },
+    {
+      id: 'sub-6',
+      title: 'Badge Photo: Paolo Garcia — 71%',
+      description: 'Slight shadow on left side. Full face visible. Meets minimum threshold.',
+      tags: ['IVV-Med', 'Borderline'],
+    },
+    {
+      id: 'sub-7',
+      title: 'Badge Photo: Liam Santos — 76%',
+      description: 'Off-white background. Acceptable. All other criteria met.',
+      tags: ['IVV-Med', 'Borderline'],
+    },
+    {
+      id: 'sub-8',
+      title: 'Badge Photo: Ina Mendoza — 79%',
+      description: 'Slightly overexposed. Face clear. Meets all requirements.',
+      tags: ['IVV-Med', 'Borderline'],
+    },
+    {
+      id: 'sub-9',
+      title: 'Badge Photo: Ramon Torres — 88%',
+      description: 'Good quality. White background. Clear face. All criteria met.',
+      tags: ['IVV-High', 'Auto-Pass'],
+    },
+    {
+      id: 'sub-10',
+      title: 'Badge Photo: Bea Aquino — 85%',
+      description: 'Good quality. Minor lighting variance. Full face + neck + shoulders visible.',
+      tags: ['IVV-High', 'Auto-Pass'],
+    },
+    {
+      id: 'sub-11',
+      title: 'Badge Photo: Sofia Flores — 92%',
+      description: 'Excellent quality. White background, no filters, full face. All criteria met.',
+      tags: ['IVV-High', 'Auto-Pass'],
+    },
+    {
+      id: 'sub-12',
+      title: 'Badge Photo: Rafael Aguilar — 90%',
+      description: 'Perfect. White background, full face, no filters, correct framing.',
+      tags: ['IVV-High', 'Auto-Pass'],
     },
   ];
 
