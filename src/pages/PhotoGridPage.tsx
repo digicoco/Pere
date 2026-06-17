@@ -233,16 +233,50 @@ interface PhotoGridPageProps {
 export const PhotoGridPage = ({ onClose }: PhotoGridPageProps) => {
   const [approved, setApproved] = useState<Set<string>>(new Set());
   const [rejected, setRejected] = useState<Set<string>>(new Set());
+  const [flagged, setFlagged] = useState<Set<string>>(new Set());
+  const [flagPending, setFlagPending] = useState<string | null>(null);
   const [message, setMessage] = useState('');
+  const [chatMessages, setChatMessages] = useState<{ role: 'user' | 'ai'; text: string }[]>([]);
 
   const handleApprove = (id: string) => {
     setApproved(prev => new Set(prev).add(id));
     setRejected(prev => { const n = new Set(prev); n.delete(id); return n; });
+    setFlagged(prev => { const n = new Set(prev); n.delete(id); return n; });
   };
 
   const handleReject = (id: string) => {
     setRejected(prev => new Set(prev).add(id));
     setApproved(prev => { const n = new Set(prev); n.delete(id); return n; });
+    setFlagged(prev => { const n = new Set(prev); n.delete(id); return n; });
+  };
+
+  const handleUndo = (id: string) => {
+    setApproved(prev => { const n = new Set(prev); n.delete(id); return n; });
+    setRejected(prev => { const n = new Set(prev); n.delete(id); return n; });
+    setFlagged(prev => { const n = new Set(prev); n.delete(id); return n; });
+  };
+
+  const handleFlag = (id: string) => {
+    const photo = allBadgePhotos.find(p => p.id === id);
+    setFlagPending(id);
+    setChatMessages(prev => [...prev,
+      { role: 'ai', text: `You're flagging ${photo?.name}'s badge photo for security review. Please provide a reason for the flag:` }
+    ]);
+  };
+
+  const handleFlagSubmit = () => {
+    if (flagPending && message.trim()) {
+      setFlagged(prev => new Set(prev).add(flagPending));
+      setApproved(prev => { const n = new Set(prev); n.delete(flagPending); return n; });
+      setRejected(prev => { const n = new Set(prev); n.delete(flagPending); return n; });
+      const photo = allBadgePhotos.find(p => p.id === flagPending);
+      setChatMessages(prev => [...prev,
+        { role: 'user', text: message },
+        { role: 'ai', text: `Flagged ${photo?.name}'s photo for security review. Reason: "${message}". The security team will be notified and the photo is now on hold pending their review.` }
+      ]);
+      setMessage('');
+      setFlagPending(null);
+    }
   };
 
   const handleApproveAllPassing = () => {
@@ -252,7 +286,8 @@ export const PhotoGridPage = ({ onClose }: PhotoGridPageProps) => {
 
   const approvedCount = approved.size;
   const rejectedCount = rejected.size;
-  const remainingCount = allBadgePhotos.length - approvedCount - rejectedCount;
+  const flaggedCount = flagged.size;
+  const remainingCount = allBadgePhotos.length - approvedCount - rejectedCount - flaggedCount;
 
   return (
     <PageContainer>
@@ -326,6 +361,11 @@ export const PhotoGridPage = ({ onClose }: PhotoGridPageProps) => {
               <Chip size={ChipSize.ExtraSmall} backgroundColor="color.red.10">
                 {rejectedCount} rejected
               </Chip>
+              {flaggedCount > 0 && (
+                <Chip size={ChipSize.ExtraSmall} backgroundColor="color.orange.10">
+                  {flaggedCount} flagged
+                </Chip>
+              )}
               <Chip size={ChipSize.ExtraSmall}>
                 {remainingCount} remaining
               </Chip>
@@ -346,6 +386,29 @@ export const PhotoGridPage = ({ onClose }: PhotoGridPageProps) => {
               Reject all failing and request retake
             </Button>
           </Col>
+
+          {/* Dynamic chat messages */}
+          {chatMessages.map((msg, i) => (
+            msg.role === 'user' ? (
+              <UserBubble key={i}>
+                <Text fontSize="T200" color="color.neutral.00">{msg.text}</Text>
+              </UserBubble>
+            ) : (
+              <AiBubble key={i}>
+                <Col gridGap="dimensions.spacing.100">
+                  <Text fontSize="T100" color="color.neutral.90">{msg.text}</Text>
+                </Col>
+              </AiBubble>
+            )
+          ))}
+
+          {flagPending && (
+            <AiBubble style={{ borderColor: token('color.orange.60') }}>
+              <Text fontSize="T100" fontWeight="bold" color="color.orange.70">
+                Waiting for flag reason... Type below and press send.
+              </Text>
+            </AiBubble>
+          )}
         </ChatBody>
 
         <ChatInput>
@@ -355,19 +418,20 @@ export const PhotoGridPage = ({ onClose }: PhotoGridPageProps) => {
                 {(inputProps) => (
                   <Input
                     {...inputProps}
-                    placeholder="Ask about these photos..."
+                    placeholder={flagPending ? "Enter flag reason..." : "Ask about these photos..."}
                     value={message}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)}
+                    onKeyDown={(e: React.KeyboardEvent) => { if (e.key === 'Enter' && flagPending) handleFlagSubmit(); }}
                   />
                 )}
               </InputWrapper>
             </View>
-            <SendButton aria-label="Send">
+            <SendButton aria-label="Send" onClick={flagPending ? handleFlagSubmit : undefined}>
               <IconChevronLeftSmall aria-hidden="true" color="white" style={{ transform: 'rotate(180deg)' }} />
             </SendButton>
           </Row>
           <Text variant="label-xs" color="color.neutral.60" textAlign="center">
-            Pere Copilot proposes — you approve every change.
+            {flagPending ? 'Enter a reason to flag this photo for security review.' : 'Pere Copilot proposes — you approve every change.'}
           </Text>
         </ChatInput>
       </ChatPanel>
@@ -379,7 +443,7 @@ export const PhotoGridPage = ({ onClose }: PhotoGridPageProps) => {
             <Col>
               <H3>Badge Photo Review</H3>
               <Text fontSize="T100" color="color.neutral.70">
-                12 photos · {approvedCount} approved · {rejectedCount} rejected · {remainingCount} remaining
+                12 photos · {approvedCount} approved · {rejectedCount} rejected · {flaggedCount > 0 ? `${flaggedCount} flagged · ` : ''}{remainingCount} remaining
               </Text>
             </Col>
             <Row gridGap="dimensions.spacing.200">
@@ -394,7 +458,7 @@ export const PhotoGridPage = ({ onClose }: PhotoGridPageProps) => {
 
           <PhotoGrid>
             {allBadgePhotos.map((photo) => {
-              const isActioned = approved.has(photo.id) || rejected.has(photo.id);
+              const isActioned = approved.has(photo.id) || rejected.has(photo.id) || flagged.has(photo.id);
               return (
                 <PhotoCard key={photo.id} actioned={isActioned}>
                   <Row alignItems="center" gridGap="dimensions.spacing.200">
@@ -417,14 +481,19 @@ export const PhotoGridPage = ({ onClose }: PhotoGridPageProps) => {
                     ))}
                   </Row>
                   {isActioned ? (
-                    <Text fontSize="T100" fontWeight="bold" color={approved.has(photo.id) ? 'color.green.70' : 'color.red.70'}>
-                      {approved.has(photo.id) ? 'Approved' : 'Rejected — retake requested'}
-                    </Text>
+                    <Row alignItems="center" justifyContent="space-between" style={{ width: '100%' }}>
+                      <Text fontSize="T100" fontWeight="bold" color={approved.has(photo.id) ? 'color.green.70' : flagged.has(photo.id) ? 'color.orange.70' : 'color.red.70'}>
+                        {approved.has(photo.id) ? 'Approved' : flagged.has(photo.id) ? 'Flagged for review' : 'Rejected — retake requested'}
+                      </Text>
+                      <FlagBtn onClick={() => handleUndo(photo.id)} style={{ flex: 'none', width: 'auto', padding: '0 10px' }}>
+                        Undo
+                      </FlagBtn>
+                    </Row>
                   ) : (
                     <ActionRow>
                       <ApproveBtn onClick={() => handleApprove(photo.id)}>Approve</ApproveBtn>
                       <RejectBtn onClick={() => handleReject(photo.id)}>Reject</RejectBtn>
-                      <FlagBtn>Flag</FlagBtn>
+                      <FlagBtn onClick={() => handleFlag(photo.id)}>Flag</FlagBtn>
                     </ActionRow>
                   )}
                 </PhotoCard>
