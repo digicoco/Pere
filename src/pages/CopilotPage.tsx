@@ -21,7 +21,7 @@ interface CompletedAction {
   completedDate: string;
 }
 
-export const CopilotPage = () => {
+export const CopilotPage = ({ onOpenPhotoGrid }: { onOpenPhotoGrid?: () => void }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [historySearchQuery, setHistorySearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -101,6 +101,7 @@ export const CopilotPage = () => {
           subPrompts={mockSubPrompts}
           onApproveAll={handleComplete}
           onApproveOne={(subId) => console.log('Approved sub:', subId)}
+          onOpenPhotoGrid={onOpenPhotoGrid}
         />
       );
     }
