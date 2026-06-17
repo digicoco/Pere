@@ -1,5 +1,5 @@
 import { Col, Row, View } from '@amzn/stencil-react-components/layout';
-import { H1, Text } from '@amzn/stencil-react-components/text';
+import { Text } from '@amzn/stencil-react-components/text';
 import styled from '@emotion/styled';
 import { token } from '@amzn/stencil-design-tokens/js/web/utils';
 
@@ -33,7 +33,14 @@ export const CopilotHeader = () => {
   return (
     <View padding="dimensions.spacing.400">
       <Col gridGap="dimensions.spacing.300">
-        <H1>Copilot</H1>
+        <Row alignItems="baseline" gridGap="dimensions.spacing.200">
+          <Text fontSize="T400" fontWeight="bold" color="color.action.primary.bg-default">
+            Good afternoon, Ana!
+          </Text>
+          <Text fontSize="T400" fontWeight="bold" color="color.neutral.90">
+            Here's today's agenda...
+          </Text>
+        </Row>
         <HeroBanner>
         <Col
           padding={['dimensions.spacing.400', 'dimensions.spacing.400']}
