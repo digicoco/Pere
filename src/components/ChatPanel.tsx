@@ -158,6 +158,21 @@ const taskSuggestionMap: Record<string, { suggestions: string[]; actions: string
     actions: ['Auto-book 2 candidates at MedFirst (next available Jun 14)', 'Send booking reminder to remaining 2 candidates', 'Escalate to clinic liaison for priority slots'],
     response: 'Four candidates have no medical appointment booked and all are blocking Day 1 readiness. Clinic availability is dropping — next open at MedFirst is Jun 14. I recommend auto-booking the 2 most urgent candidates and sending reminders with self-schedule links to the other 2.',
   },
+  'cohort readiness': {
+    suggestions: ['Show at-risk candidates by blocking reason', 'What\'s the readiness forecast?', 'Compare to Jun 30 cohort capacity'],
+    actions: ['Send urgent reminders to 4 at-risk candidates', 'Move 2 unlikely-to-complete to Jun 30 cohort', 'Escalate BGC delays to Accurate vendor'],
+    response: 'The Jun 23 cohort is at 63% readiness (22 of 35 candidates). 4 are at risk: 2 waiting on BGC results (Accurate SLA breached), 1 missing medical clearance, 1 hasn\'t completed NID. Forecast suggests 24-28 will be ready by Day 1. I recommend immediate outreach to the 4 at-risk and moving the 2 BGC-blocked to Jun 30 if results don\'t arrive by end of day.',
+  },
+  'offers expiring': {
+    suggestions: ['Show candidate contact history', 'What\'s the offer acceptance rate this week?', 'Can we extend the deadline?'],
+    actions: ['Extend deadline by 48h for all 3 candidates', 'Send follow-up reminder with urgency note', 'Flag to recruiter manager for outreach'],
+    response: 'Three offers are expiring within 24 hours with no candidate response: Ana Reyes (Mid Shift, extended Jun 14), Ramon Torres (Night Shift, extended Jun 13), and Carla Mendoza (Day Shift, extended Jun 14). All three are targeting the Jun 23 cohort. I recommend extending deadlines by 48h and sending a follow-up reminder emphasizing the approaching start date.',
+  },
+  'nid collected before loi': {
+    suggestions: ['What is the PH Data Privacy Act requirement?', 'Which candidate is affected?', 'How do we remediate?'],
+    actions: ['Pause candidate pipeline pending review', 'Delete pre-LOI NID submission from system', 'Re-trigger NID collection after LOI is signed'],
+    response: 'Compliance violation detected: NID (National ID) was collected from 1 candidate before their LOI (Letter of Intent) was signed. Under the Philippine Data Privacy Act, personal identification documents can only be collected post-LOI. I recommend pausing this candidate\'s pipeline, purging the pre-LOI document, and re-requesting NID upload after the LOI is executed.',
+  },
 };
 
 function getContextForMessage(msg: string): { suggestions: string[]; actions: string[]; response: string } | null {
