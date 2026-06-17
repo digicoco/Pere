@@ -51,7 +51,7 @@ export const CopilotHeader = () => {
           <Text fontSize="T300" fontWeight="bold" color="color.neutral.90">
             Your agents have been working hard so you don't have to.
           </Text>
-          <Text fontSize="T100" color="color.neutral.70">
+          <Text fontSize="T200" color="color.neutral.70">
             4 active jobs, 147 candidates in pipeline. 12 appointments today, 6 offers to extend.
             Complete your actions from the digest below, or go to agents to configure automation.
           </Text>
