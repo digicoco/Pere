@@ -9,7 +9,7 @@ export const dueSoonActions: ActionItem[] = [
   // ── Task 1: Badge Photos ──────────────────────────────────────────────────
   {
     id: 'task-1',
-    title: '12 Badge Photos Awaiting Approval',
+    title: '12 Badge Photos Waiting Review',
     subtitle: 'Oldest: 3h 42m ago · 5 low-confidence scores',
     secondaryText: 'SLA: 12hr · Batch approve available',
     status: 'critical',
