@@ -144,37 +144,14 @@ export const ActionCard = ({ item, isSelected, onClick, onOpenAgent }: ActionCar
                 </OpenAgentButtonWithTooltip>
               )}
             </Row>
-            <Row gridGap="dimensions.spacing.100" alignItems="center">
-              <Text fontSize="T50" fontWeight="medium" color="color.neutral.70">
-                {item.subtitle}
+            <Text fontSize="T50" fontWeight="medium" color="color.neutral.70">
+              {item.subtitle}
+            </Text>
+            {item.secondaryText && (
+              <Text fontSize="T50" fontWeight="medium" color="color.neutral.60">
+                {item.secondaryText}
               </Text>
-              {item.secondaryText && (
-                <>
-                  <View
-                    width={2}
-                    height={2}
-                    borderRadius="50%"
-                    backgroundColor="color.neutral.50"
-                  />
-                  <Text fontSize="T50" fontWeight="medium" color="color.neutral.70">
-                    {item.secondaryText}
-                  </Text>
-                </>
-              )}
-              {isSelected && (
-                <>
-                  <View
-                    width={2}
-                    height={2}
-                    borderRadius="50%"
-                    backgroundColor="color.neutral.50"
-                  />
-                  <Text fontSize="T50" fontWeight="medium" color="color.neutral.70">
-                    Needs attention
-                  </Text>
-                </>
-              )}
-            </Row>
+            )}
           </Col>
         </Row>
       </Row>
